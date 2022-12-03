@@ -324,9 +324,36 @@
 
 </div>
 
-<div align="center"><a href="http://www.amazingcounters.com">
-	<img border="0" src="http://cc.amazingcounters.com/counter.php?i=3249408&c=9748537" alt="AmazingCounters.com"></a>
-</div>
+<?php
+		//数字输出网页计数器
+		$max_len = 9;
+		$CounterFile = "counter.dat";
+		if(!file_exists($CounterFile)){		//如果计数器文件不存在
+			$counter = 0;					
+			$cf = fopen($CounterFile,"w");	//打开文件
+			fputs($cf,'0');					//初始化计数器
+			fclose($cf);					//关闭文件
+		}
+		else{										//取回当前计数器的值
+			$cf = fopen($CounterFile,"r");
+			$counter = trim(fgets($cf,$max_len));
+			fclose($cf);
+		}
+		$counter++;									//计数器加一
+		$cf = fopen($CounterFile,"w");				//写入新的数据
+		fputs($cf,$counter);
+		fclose($cf);
+	?>
+	<div id="dd" align="center">
+		<!-- <span>Welcome!</span> -->
+		<span>This page has been accessed at least 
+			<?php
+			 echo $counter;							//输出计数器
+			?>
+		several times since Dec 3rd, 2022 :D</span>
+	</div>
+
+
 
 <section id="footer" class="section bg-gray">
     <section class="container grid-lg">
